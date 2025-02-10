@@ -11,7 +11,6 @@ import cors from "cors";
 dotenv.config();
 const app = express();
 const PORT = 3000;
-const __dirname = path.resolve();
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors({ origin: "https://blog-app-2-hh1j.onrender.com", credentials: true }));
