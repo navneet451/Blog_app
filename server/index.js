@@ -14,7 +14,7 @@ const PORT = 3000;
 const __dirname = path.resolve();
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors({ origin: "http://localhost:5173", credentials: true }));
+app.use(cors({ origin: "https://blog-app-2-hh1j.onrender.com", credentials: true }));
 
 app.use("/api", userRoutes);
 app.use("/api", authRoutes);
