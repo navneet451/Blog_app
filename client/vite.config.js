@@ -5,7 +5,7 @@ export default defineConfig({
   server: {
     proxy: {
       "/api": {
-        target: "https://blog-app-bjxb.onrender.com", // Use the deployed backend URL
+        target: "https://blog-app-backend-o0wt.onrender.com/", // Use the deployed backend URL
         changeOrigin: true,
         secure: true,
       },
