@@ -8,7 +8,7 @@ router.post("/create", verifyToken, create);
 
 router.get("/getposts/:id", getPosts);
 
-router.get("/posts/getallposts/", verifyToken, getAllPosts);
+router.get("/posts/getallposts", verifyToken, getAllPosts);
 
 router.delete("/deletepost/:userId/:postId", verifyToken, deletePost);
 
