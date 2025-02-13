@@ -15,6 +15,10 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(cors({ origin: "https://blog-app-2-hh1j.onrender.com/", credentials: true }));
 
+
+app.get("/", (req, res) => {
+    res.send("Server is running!");
+});
 app.use("/api", userRoutes);
 app.use("/api", authRoutes);
 app.use("/api", postRoutes);
