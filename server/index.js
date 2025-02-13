@@ -10,10 +10,10 @@ import cors from "cors";
 
 dotenv.config();
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors({ origin: "https://blog-app-2-hh1j.onrender.com/", credentials: true }));
+app.use(cors({ origin: "https://blog-app-2-hh1j.onrender.com", credentials: true }));
 
 
 app.get("/", (req, res) => {
@@ -28,7 +28,7 @@ app.use((err, req, res, next) => {
   let statusCode = err.statusCode || 500;
   let message = err.message || "Internal Server Error";
   res.status(statusCode).json({
-    seccess: false,
+    success: false,
     statusCode,
     message,
   });
