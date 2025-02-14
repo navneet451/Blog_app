@@ -25,7 +25,7 @@ const DashPosts = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const res = await axios.get(`/api/getPosts/${currentUser.user._id}`);
+        const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/getPosts/${currentUser.user._id}`);
         setUserPosts(res.data.posts);
       } catch (error) {
         console.log(error);
@@ -40,7 +40,7 @@ const DashPosts = () => {
     setShowModal(false);
     try {
       const res = await axios.delete(
-        `/api/deletepost/${currentUser.user._id}/${postIdToDelete}`
+        `${import.meta.env.VITE_BACKEND_URL}/api/deletepost/${currentUser.user._id}/${postIdToDelete}`
       );
       toast.success(res.data.message);
       setUserPosts((prev) =>
