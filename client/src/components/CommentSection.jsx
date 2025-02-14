@@ -24,7 +24,7 @@ const CommentSection = ({ postId }) => {
     }
 
     try {
-      const res = await axios.post("/api/comment/create", {
+      const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/comment/create`, {
         content: comment,
         userId: currentUser.user._id,
         postId,
@@ -45,7 +45,7 @@ const CommentSection = ({ postId }) => {
   useEffect(() => {
     const getComments = async () => {
       try {
-        const res = await axios.get(`/api/comment/getcomments/${postId}`);
+        const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/comment/getcomments/${postId}`);
         setComments([...res.data, comment]);
       } catch (error) {
         console.log(error);
@@ -68,7 +68,7 @@ const CommentSection = ({ postId }) => {
         navigate("/sign-in");
         return;
       }
-      const res = await axios.delete(`/api/comment/deletecomment/${commentToDelete}`);
+      const res = await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/api/comment/deletecomment/${commentToDelete}`);
       if (res.status === 200) {
         setComments(comments.filter((comment) => comment._id !== commentToDelete));
         toast.success(res.data?.message)
