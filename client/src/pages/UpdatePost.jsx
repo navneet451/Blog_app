@@ -23,7 +23,7 @@ const UpdatePost = () => {
 
     try {
       const fetchPosts = async () => {
-        const posts = await axios.get(`/api/getposts/${postId}`);
+        const posts = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/getposts/${postId}`);
         console.log(posts.data);
         setTitle(posts.data.posts[0].title);
         setImageURL(posts.data.posts[0].imageURL);
