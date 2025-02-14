@@ -21,7 +21,7 @@ const Oauth = () => {
     try {
       const resultFromGoogle = await signInWithPopup(auth, provider);
     //   console.log(resultFromGoogle);
-      const res = await axios.post("/api/google", {
+      const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/google`, {
         name: resultFromGoogle.user.displayName,
         email: resultFromGoogle.user.email,
         googlePhotoUrl: resultFromGoogle.user.photoURL,
