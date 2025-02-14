@@ -19,7 +19,7 @@ const SignIn = () => {
     // setLoading(true);
     dispatch(signInStart());
     try {
-      const res = await axios.post("/api/signin", {
+      const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/signin`, {
         email:email,
         password:password,
       });
