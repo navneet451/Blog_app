@@ -25,7 +25,7 @@ const DashUsers = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const res = await axios.get(`/api/getusers`);
+        const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/getusers`);
         setUsers(res.data.users);
       } catch (error) {
         console.log(error);
@@ -40,7 +40,7 @@ const DashUsers = () => {
     setShowModal(false);
     try {
       const res = await axios.delete(
-        `/api/user/${userIdToDelete}`
+        `${import.meta.env.VITE_BACKEND_URL}/api/user/${userIdToDelete}`
       );
       toast.success(res.data.message);
       setUsers((prev) => prev.filter((user) => user._id !== userIdToDelete));
