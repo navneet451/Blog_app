@@ -13,7 +13,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors({ origin: "https://blogapp-frontend-ht1gpxcyv-navneet451s-projects.vercel.app/", credentials: true }));
+app.use(cors({ origin: "https://blogapp-frontend-ht1gpxcyv-navneet451s-projects.vercel.app", credentials: true }));
 
 
 app.get("/", (req, res) => {
