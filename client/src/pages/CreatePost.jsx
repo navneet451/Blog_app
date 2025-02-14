@@ -51,7 +51,7 @@ const CreatePost = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("/api/create", {
+      const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/create`, {
         title: title,
         description: description,
         category: category,
