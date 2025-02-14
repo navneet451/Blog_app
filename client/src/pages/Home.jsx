@@ -8,7 +8,7 @@ const Home = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const res = await axios.get(`/api/posts/getallposts/`);
+        const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/posts/getallposts/`);
         if (res.status === 200) {
           setPosts(res.data);
         }
