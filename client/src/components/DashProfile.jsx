@@ -36,7 +36,7 @@ const DashProfile = () => {
     try {
       dispatch(updateStart());
       const res = await axios.patch(
-        `http://localhost:3000/api/user/${currentUser.user._id}`,
+        `${import.meta.env.VITE_BACKEND_URL}/api/user/${currentUser.user._id}`,
         {
           userName: updateUserName,
           email: updateEmail,
@@ -60,7 +60,7 @@ const DashProfile = () => {
     setShowModal(false);
     try {
       dispatch(deleteStart());
-      const res = await axios.delete(`/api/user/${currentUser.user._id}`);
+      const res = await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/api/user/${currentUser.user._id}`);
       toast.success(res.data.message);
       dispatch(deleteSuccess(res.data));
     } catch (error) {
@@ -73,7 +73,7 @@ const DashProfile = () => {
 
   const handleSignOut = async () => {
     try {
-      const res = await axios.post("/api/user");
+      const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/user`);
       toast.success(res.data.message);
       dispatch(signOutSuccess());
     } catch (error) {
