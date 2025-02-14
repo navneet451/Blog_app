@@ -8,7 +8,6 @@ export default defineConfig({
         target: "https://blog-app-backend-o0wt.onrender.com", // Use the deployed backend URL
         changeOrigin: true,
         secure: true,
-        rewrite: (path) => path.replace(/^\/api/, ""), // Remove /api prefix when forwarding
       },
     },
   },
