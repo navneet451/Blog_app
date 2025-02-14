@@ -6,14 +6,14 @@ import authRoutes from "./routes/auth.route.js";
 import postRoutes from "./routes/post.route.js";
 import commentRoutes from "./routes/comment.route.js";
 import cookieParser from "cookie-parser";
-// import cors from "cors";
+import cors from "cors";
 
 dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 app.use(express.json());
 app.use(cookieParser());
-// app.use(cors({ origin: "https://blogapp-frontend-ht1gpxcyv-navneet451s-projects.vercel.app", credentials: true }));
+app.use(cors({ origin: "https://blog-app-frontend-ezw3.onrender.com", credentials: true }));
 
 
 app.get("/", (req, res) => {
