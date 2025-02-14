@@ -27,7 +27,7 @@ const DashComments = () => {
     useEffect(() => {
       const fetchComments = async () => {
         try {
-          const res = await axios.get(`/api/comment/getallcomments`);
+          const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/comment/getallcomments`);
           console.log(res.data);
           
           setComments(res.data.comments);
@@ -44,7 +44,7 @@ const DashComments = () => {
       setShowModal(false);
       try {
         const res = await axios.delete(
-          `/api/comment/deletecomment/${commentIdToDelete}`
+          `${import.meta.env.VITE_BACKEND_URL}/api/comment/deletecomment/${commentIdToDelete}`
         );
         toast.success(res.data.message);
         setComments((prev) => prev.filter((comment) => comment._id !== commentIdToDelete));
