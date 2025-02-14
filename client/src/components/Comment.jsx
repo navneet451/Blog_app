@@ -17,7 +17,7 @@ const Comment = ({ comment, onEdit, onDelete }) => {
     if (!comment?.userId) return;
     const getUser = async () => {
       try {
-        const res = await axios.get(`/api/user/${comment.userId}`);
+        const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/user/${comment.userId}`);
         console.log(res);
         setUser(res.data);
       } catch (error) {
@@ -34,7 +34,7 @@ const Comment = ({ comment, onEdit, onDelete }) => {
 
   const handleSave = async () => {
     try {
-      const res = await axios.put(`/api/comment/editcomment/${comment._id}`, {
+      const res = await axios.put(`${import.meta.env.VITE_BACKEND_URL}/api/comment/editcomment/${comment._id}`, {
         content: editedComment,
       });
       setIsEditing(false);
