@@ -27,7 +27,9 @@ const DashComments = () => {
     useEffect(() => {
       const fetchComments = async () => {
         try {
-          const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/comment/getallcomments`);
+          const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/comment/getallcomments`, {
+        withCredentials: true,
+      });
           console.log(res.data);
           
           setComments(res.data.comments);
@@ -45,7 +47,9 @@ const DashComments = () => {
       try {
         const res = await axios.delete(
           `${import.meta.env.VITE_BACKEND_URL}/api/comment/deletecomment/${commentIdToDelete}`
-        );
+        , {
+        withCredentials: true,
+      });
         toast.success(res.data.message);
         setComments((prev) => prev.filter((comment) => comment._id !== commentIdToDelete));
       } catch (error) {
