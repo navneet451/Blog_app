@@ -35,7 +35,7 @@ const SignIn = () => {
       // Clear fields regardless of success or failure
       setEmail("");
       setPassword("");
-      setLoading(false);
+      // setLoading(false);
     }
   };
 
