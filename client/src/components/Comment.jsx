@@ -17,7 +17,9 @@ const Comment = ({ comment, onEdit, onDelete }) => {
     if (!comment?.userId) return;
     const getUser = async () => {
       try {
-        const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/user/${comment.userId}`);
+        const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/user/${comment.userId}`, {
+        withCredentials: true,
+      });
         console.log(res);
         setUser(res.data);
       } catch (error) {
@@ -36,6 +38,8 @@ const Comment = ({ comment, onEdit, onDelete }) => {
     try {
       const res = await axios.put(`${import.meta.env.VITE_BACKEND_URL}/api/comment/editcomment/${comment._id}`, {
         content: editedComment,
+      }, {
+        withCredentials: true,
       });
       setIsEditing(false);
       onEdit(comment, editedComment);
