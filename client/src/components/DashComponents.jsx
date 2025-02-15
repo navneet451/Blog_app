@@ -19,19 +19,25 @@ const DashComponents = () => {
 
   useEffect(() => {
     const fetchUsers = async () => {
-      const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/getusers`);
+      const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/getusers`, {
+        withCredentials: true,
+      });
       if (res.status === 200) {
         setUsers(res.data.users);
         setTotalUsers(res.data.totalUsers);
       }
     };
     const fetchComments = async () => {
-      const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/comment/getallcomments`);
+      const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/comment/getallcomments`, {
+        withCredentials: true,
+      });
       setComments(res.data.comments);
       setTotalComments(res.data.totalComments);
     };
     const fetchPosts = async () => {
-      const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/getposts/${currentUser.user._id}`);
+      const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/getposts/${currentUser.user._id}`, {
+        withCredentials: true,
+      });
       setPosts(res.data.posts);
       setTotalPosts(res.data.totalPosts);
     };
