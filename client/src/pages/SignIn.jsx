@@ -26,7 +26,7 @@ const SignIn = () => {
       console.log(res);
       toast.success(res.data.message);
       dispatch(signInSuccess(res.data));
-      navigate("/");
+      navigate("https://blog-app-frontend-ezw3.onrender.com");
     } catch (error) {
       console.log(error);
       toast.error(error.response?.data?.message || "Something went wrong");
