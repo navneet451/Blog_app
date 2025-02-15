@@ -56,6 +56,8 @@ const CreatePost = () => {
         description: description,
         category: category,
         imageURL: imageURL,
+      }, {
+        withCredentials: true,
       });
       console.log(res);
       toast.success(res.data.message); 
