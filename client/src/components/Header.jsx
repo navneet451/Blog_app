@@ -26,7 +26,9 @@ const Header = () => {
   const { theme } = useSelector((state) => state.theme);
   const handleSignOut = async () => {
     try {
-      const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/user`);
+      const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/user`, {
+        withCredentials: true,
+      });
       toast.success(res.data.message);
       dispatch(signOutSuccess());
     } catch (error) {
