@@ -42,8 +42,6 @@ const CommentSection = ({ postId }) => {
         error.response?.data?.message || "Comment couldn't added! try again"
       );
       setComment("");
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -56,7 +54,9 @@ const CommentSection = ({ postId }) => {
         setComments([...res.data, comment]);
       } catch (error) {
         console.log(error);
-      }
+      } finally {
+      setLoading(false);
+    }
     };
     getComments();
   }, [postId]);
