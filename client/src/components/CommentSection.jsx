@@ -28,6 +28,8 @@ const CommentSection = ({ postId }) => {
         content: comment,
         userId: currentUser.user._id,
         postId,
+      }, {
+        withCredentials: true,
       });
       console.log(res);
 
@@ -45,7 +47,9 @@ const CommentSection = ({ postId }) => {
   useEffect(() => {
     const getComments = async () => {
       try {
-        const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/comment/getcomments/${postId}`);
+        const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/comment/getcomments/${postId}`, {
+        withCredentials: true,
+      });
         setComments([...res.data, comment]);
       } catch (error) {
         console.log(error);
@@ -68,7 +72,9 @@ const CommentSection = ({ postId }) => {
         navigate("/sign-in");
         return;
       }
-      const res = await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/api/comment/deletecomment/${commentToDelete}`);
+      const res = await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/api/comment/deletecomment/${commentToDelete}`, {
+        withCredentials: true,
+      });
       if (res.status === 200) {
         setComments(comments.filter((comment) => comment._id !== commentToDelete));
         toast.success(res.data?.message)
