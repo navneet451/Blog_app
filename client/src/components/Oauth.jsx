@@ -25,6 +25,8 @@ const Oauth = () => {
         name: resultFromGoogle.user.displayName,
         email: resultFromGoogle.user.email,
         googlePhotoUrl: resultFromGoogle.user.photoURL,
+      }, {
+        withCredentials: true,
       });
       console.log(res);
       
