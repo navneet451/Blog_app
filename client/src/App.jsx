@@ -23,19 +23,19 @@ const App = () => {
       <ToastContainer />
       <Header />
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/sign-in" element={<SignIn />} />
-        <Route path="/sign-up" element={<SignUp />} />
+        <Route path="https://blog-app-frontend-ezw3.onrender.com" element={<Home />} />
+        <Route path="https://blog-app-frontend-ezw3.onrender.com/about" element={<About />} />
+        <Route path="https://blog-app-frontend-ezw3.onrender.com/sign-in" element={<SignIn />} />
+        <Route path="https://blog-app-frontend-ezw3.onrender.com/sign-up" element={<SignUp />} />
         <Route element={<PrivateRoute />}>
-          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="https://blog-app-frontend-ezw3.onrender.com/dashboard" element={<Dashboard />} />
         </Route>
         <Route element={<OnlyAdminPrivateRote />}>
-          <Route path="/create-post" element={<CreatePost />} />
-          <Route path="/update-post/:postId" element={<UpdatePost />} />
+          <Route path="https://blog-app-frontend-ezw3.onrender.com/create-post" element={<CreatePost />} />
+          <Route path="https://blog-app-frontend-ezw3.onrender.com/update-post/:postId" element={<UpdatePost />} />
         </Route>
-        <Route path="/project" element={<Project />} />
-        <Route path="/post/:id" element={<PostPage />} />
+        <Route path="https://blog-app-frontend-ezw3.onrender.com/project" element={<Project />} />
+        <Route path="https://blog-app-frontend-ezw3.onrender.com/post/:id" element={<PostPage />} />
       </Routes>
       <FooterComponent />
     </BrowserRouter>
