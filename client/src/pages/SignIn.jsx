@@ -22,7 +22,7 @@ const SignIn = () => {
       const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/signin`, {
         email:email,
         password:password,
-      });
+      },{withCredentials: true,});
       console.log(res);
       toast.success(res.data.message);
       dispatch(signInSuccess(res.data));
