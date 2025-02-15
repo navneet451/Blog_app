@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
-import Oauth from "../components/Oauth";
+// import Oauth from "../components/Oauth";
 
 const SignUp = () => {
   const [userName, setUserName] = useState("");
@@ -95,7 +95,7 @@ const SignUp = () => {
                 "Sign Up"
               )}
             </Button>
-            <Oauth />
+     
           </form>
           <div>
             <span>
