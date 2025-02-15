@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { signInStart, signInSuccess, signInFailure } from "../redux/user/userSlice";
-import Oauth from "../components/Oauth";
+// import Oauth from "../components/Oauth";
 
 const SignIn = () => {
   const [email, setEmail] = useState();
@@ -90,7 +90,7 @@ const SignIn = () => {
                 "Sign In"
               )}
             </Button>
-            <Oauth />
+           
           </form>
           <div>
             <span>
