@@ -42,6 +42,8 @@ const CommentSection = ({ postId }) => {
         error.response?.data?.message || "Comment couldn't added! try again"
       );
       setComment("");
+    } finally {
+      setLoading(false);
     }
   };
 
