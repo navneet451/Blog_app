@@ -25,7 +25,9 @@ const DashPosts = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/getPosts/${currentUser.user._id}`);
+        const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/getPosts/${currentUser.user._id}`, {
+        withCredentials: true,
+      });
         setUserPosts(res.data.posts);
       } catch (error) {
         console.log(error);
@@ -41,7 +43,9 @@ const DashPosts = () => {
     try {
       const res = await axios.delete(
         `${import.meta.env.VITE_BACKEND_URL}/api/deletepost/${currentUser.user._id}/${postIdToDelete}`
-      );
+      , {
+        withCredentials: true,
+      });
       toast.success(res.data.message);
       setUserPosts((prev) =>
         prev.filter((post) => post._id !== postIdToDelete)
