@@ -20,6 +20,7 @@ const DashPosts = () => {
   const { currentUser } = useSelector((state) => state.user);
   const [userPosts, setUserPosts] = useState([]);
   const [showModal, setShowModal] = useState(false);
+  const [loading, setLoading] = useState(true)
   const [postIdToDelete, setPostIdToDelete] = useState();
 
   useEffect(() => {
@@ -31,6 +32,8 @@ const DashPosts = () => {
         setUserPosts(res.data.posts);
       } catch (error) {
         console.log(error);
+      } finally {
+        setLoading(false);
       }
     };
     if (currentUser.user.isAdmin) {
@@ -57,68 +60,69 @@ const DashPosts = () => {
   };
   return (
     <div className="table-auto overflow-auto md:mx-auto p-6 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500">
-      {currentUser.user.isAdmin && userPosts.length > 0 ? (
-        <>
-          <Table hoverable className="shadow-md">
-            <TableHead>
-              <TableHeadCell>Date Updated</TableHeadCell>
-              <TableHeadCell>Post image</TableHeadCell>
-              <TableHeadCell>Post title</TableHeadCell>
-              <TableHeadCell>Category</TableHeadCell>
-              <TableHeadCell>Delete</TableHeadCell>
-              <TableHeadCell>
-                <span>edit</span>
-              </TableHeadCell>
-            </TableHead>
-            {userPosts.map((post) => (
-              <TableBody key={post._id} className="divide-y">
-                <TableRow className="bg-white dark:border-gray-700 dark:bg-gray-700">
-                  <TableCell>
-                    {new Date(post.updatedAt).toLocaleDateString()}
-                  </TableCell>
-                  <TableCell>
-                    <Link to={`/post/${post._id}`}>
-                      <img
-                        src={post.imageURL}
-                        alt={post.title}
-                        className="w-20 h-12 object-cover bg-gray-500"
-                      />
-                    </Link>
-                  </TableCell>
-                  <TableCell>{post.title}</TableCell>
-                  <TableCell>{post.category}</TableCell>
-                  <TableCell>
-                    <div
-                      onClick={() => {
-                        setShowModal(true);
-                        setPostIdToDelete(post._id);
-                      }}
-                      className="cursor-pointer group relative w-7 h-7 flex items-center justify-center dark:hover:text-white"
-                    >
-                      <HiTrash className="w-7 h-7 " />
-                      <span className=" absolute left-full ml-2 bg-red-500 text-white text-md px-2 py-1 rounded opacity-0 transition-opacity duration-200 group-hover:opacity-100">
-                        Delete
-                      </span>
-                    </div>
-                  </TableCell>
-                  <TableCell>
-                    <Link to={`/update-post/${post._id}`}>
-                      <div className="cursor-pointer group relative w-7 h-7 flex items-center justify-center  dark:hover:text-white">
-                        <HiPencil className="w-7 h-7" />
-                        <span className="absolute left-full ml-2 bg-teal-500 text-white text-md px-2 py-1 rounded opacity-0 transition-opacity duration-200 group-hover:opacity-100">
-                          Edit
-                        </span>
-                      </div>
-                    </Link>
-                  </TableCell>
-                </TableRow>
-              </TableBody>
-            ))}
-          </Table>
-        </>
-      ) : (
-        <p>You have no posts yet!</p>
-      )}
+{loading ? ( // 🔥 Show loading message while fetching
+      <p className="text-sm my-5">Loading posts...</p>
+    ) : currentUser?.user?.isAdmin && userPosts.length > 0 ? (
+      <Table hoverable className="shadow-md">
+        <TableHead>
+          <TableHeadCell>Date Updated</TableHeadCell>
+          <TableHeadCell>Post image</TableHeadCell>
+          <TableHeadCell>Post title</TableHeadCell>
+          <TableHeadCell>Category</TableHeadCell>
+          <TableHeadCell>Delete</TableHeadCell>
+          <TableHeadCell>
+            <span>Edit</span>
+          </TableHeadCell>
+        </TableHead>
+        <TableBody className="divide-y">
+          {userPosts.map((post) => (
+            <TableRow
+              key={post._id} // 🔥 Added key to avoid React warnings
+              className="bg-white dark:border-gray-700 dark:bg-gray-700"
+            >
+              <TableCell>{new Date(post.updatedAt).toLocaleDateString()}</TableCell>
+              <TableCell>
+                <Link to={`/post/${post._id}`}>
+                  <img
+                    src={post.imageURL}
+                    alt={post.title}
+                    className="w-20 h-12 object-cover bg-gray-500"
+                  />
+                </Link>
+              </TableCell>
+              <TableCell>{post.title}</TableCell>
+              <TableCell>{post.category}</TableCell>
+              <TableCell>
+                <div
+                  onClick={() => {
+                    setShowModal(true);
+                    setPostIdToDelete(post._id);
+                  }}
+                  className="cursor-pointer group relative w-7 h-7 flex items-center justify-center dark:hover:text-white"
+                >
+                  <HiTrash className="w-7 h-7 " />
+                  <span className="absolute left-full ml-2 bg-red-500 text-white text-md px-2 py-1 rounded opacity-0 transition-opacity duration-200 group-hover:opacity-100">
+                    Delete
+                  </span>
+                </div>
+              </TableCell>
+              <TableCell>
+                <Link to={`/update-post/${post._id}`}>
+                  <div className="cursor-pointer group relative w-7 h-7 flex items-center justify-center dark:hover:text-white">
+                    <HiPencil className="w-7 h-7" />
+                    <span className="absolute left-full ml-2 bg-teal-500 text-white text-md px-2 py-1 rounded opacity-0 transition-opacity duration-200 group-hover:opacity-100">
+                      Edit
+                    </span>
+                  </div>
+                </Link>
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    ) : (
+      <p className="text-sm my-5">You have no posts yet!</p>
+    )}
       <Modal
         show={showModal}
         onClick={() => setShowModal(false)}
