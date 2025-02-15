@@ -60,7 +60,9 @@ const DashProfile = () => {
     setShowModal(false);
     try {
       dispatch(deleteStart());
-      const res = await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/api/user/${currentUser.user._id}`);
+      const res = await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/api/user/${currentUser.user._id}`, {
+        withCredentials: true,
+      });
       toast.success(res.data.message);
       dispatch(deleteSuccess(res.data));
     } catch (error) {
@@ -73,7 +75,9 @@ const DashProfile = () => {
 
   const handleSignOut = async () => {
     try {
-      const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/user`);
+      const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/user`, {
+        withCredentials: true,
+      });
       toast.success(res.data.message);
       dispatch(signOutSuccess());
     } catch (error) {
