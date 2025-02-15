@@ -22,6 +22,7 @@ const DashComments = () => {
     const { currentUser } = useSelector((state) => state.user);
     const [comments, setComments] = useState([]);
     const [showModal, setShowModal] = useState(false);
+  const [loading, setLoading] = useState(false);
     const [commentIdToDelete, setCommentIdToDelete] = useState();
   
     useEffect(() => {
@@ -35,6 +36,8 @@ const DashComments = () => {
           setComments(res.data.comments);
         } catch (error) {
           console.log(error);
+        } finally {
+          setLoading(false);
         }
       };
       if (currentUser.user.isAdmin) {
@@ -59,56 +62,56 @@ const DashComments = () => {
     };
   return (
    <div className="table-auto overflow-auto md:mx-auto px-8 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500">
-         {currentUser.user.isAdmin && comments.length > 0 ? (
-           <>
-             <Table hoverable className="shadow-md">
-               <TableHead>
-                 <TableHeadCell>Date Created</TableHeadCell>
-                 <TableHeadCell>Comment Content</TableHeadCell>
-                 <TableHeadCell>UserId</TableHeadCell>
-                 <TableHeadCell>PostId</TableHeadCell>
-                 <TableHeadCell>Admin</TableHeadCell>
-                 <TableHeadCell>Delete</TableHeadCell>
-               </TableHead>
-               {comments.map((comment) => (
-                 <TableBody className="divide-y">
-                   <TableRow className="bg-white dark:border-gray-700 dark:bg-gray-700">
-                     <TableCell>
-                       {new Date(comment.createdAt).toLocaleDateString()}
-                     </TableCell>
-                     
-                     <TableCell>{comment.content}</TableCell>
-                     <TableCell>{comment.userId}</TableCell>
-                     <TableCell>{comment.postId}</TableCell>
-                     <TableCell>
-                       {comment.isAdmin ? (
-                         <FaCheck className="text-green-500" />
-                       ) : (
-                         <FaTimes className="text-red-500" />
-                       )}
-                     </TableCell>
-                     <TableCell>
-                       <div
-                         onClick={() => {
-                           setShowModal(true);
-                           setCommentIdToDelete(comment._id);
-                         }}
-                         className="cursor-pointer group relative w-7 h-7 flex items-center justify-center dark:hover:text-white"
-                       >
-                         <HiTrash className="w-7 h-7" />
-                         <span className=" absolute left-full ml-2 bg-red-500 text-white text-md px-2 py-1 rounded opacity-0 transition-opacity duration-200 group-hover:opacity-100">
-                           Delete
-                         </span>
-                       </div>
-                     </TableCell>
-                   </TableRow>
-                 </TableBody>
-               ))}
-             </Table>
-           </>
-         ) : (
-           <p>You have no comments yet!</p>
-         )}
+        {loading ? ( // 🔥 Show loading state while fetching
+      <p className="text-sm my-5">Loading comments...</p>
+    ) : currentUser?.user?.isAdmin && comments.length > 0 ? (
+      <Table hoverable className="shadow-md">
+        <TableHead>
+          <TableHeadCell>Date Created</TableHeadCell>
+          <TableHeadCell>Comment Content</TableHeadCell>
+          <TableHeadCell>UserId</TableHeadCell>
+          <TableHeadCell>PostId</TableHeadCell>
+          <TableHeadCell>Admin</TableHeadCell>
+          <TableHeadCell>Delete</TableHeadCell>
+        </TableHead>
+        <TableBody className="divide-y">
+          {comments.map((comment) => (
+            <TableRow
+              key={comment._id} // 🔥 React key added
+              className="bg-white dark:border-gray-700 dark:bg-gray-700"
+            >
+              <TableCell>{new Date(comment.createdAt).toLocaleDateString()}</TableCell>
+              <TableCell>{comment.content}</TableCell>
+              <TableCell>{comment.userId}</TableCell>
+              <TableCell>{comment.postId}</TableCell>
+              <TableCell>
+                {comment.isAdmin ? (
+                  <FaCheck className="text-green-500" />
+                ) : (
+                  <FaTimes className="text-red-500" />
+                )}
+              </TableCell>
+              <TableCell>
+                <div
+                  onClick={() => {
+                    setShowModal(true);
+                    setCommentIdToDelete(comment._id);
+                  }}
+                  className="cursor-pointer group relative w-7 h-7 flex items-center justify-center dark:hover:text-white"
+                >
+                  <HiTrash className="w-7 h-7" />
+                  <span className="absolute left-full ml-2 bg-red-500 text-white text-md px-2 py-1 rounded opacity-0 transition-opacity duration-200 group-hover:opacity-100">
+                    Delete
+                  </span>
+                </div>
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    ) : (
+      <p className="text-sm my-5">You have no comments yet!</p>
+    )}
          <Modal
            show={showModal}
            onClick={() => setShowModal(false)}
