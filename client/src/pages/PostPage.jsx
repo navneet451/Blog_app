@@ -14,7 +14,9 @@ const PostPage = () => {
     setLoading(true);
     const fetchPost = async () => {
       try {
-        const post = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/getposts/${id}`);
+        const post = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/getposts/${id}`, {
+        withCredentials: true,
+      });
         // console.log(post);
         setPost(post.data.posts[0]);
         setLoading(false);
