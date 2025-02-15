@@ -35,9 +35,7 @@ const DashSidebar = () => {
   }, [location.search]);
   const handleSignOut = async () => {
     try {
-      const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/user`, {
-        withCredentials: true,
-      });
+      const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/user`);
       toast.success(res.data.message);
       dispatch(signOutSuccess());
     } catch (error) {
