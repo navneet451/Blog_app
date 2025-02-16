@@ -22,7 +22,7 @@ const DashComments = () => {
     const { currentUser } = useSelector((state) => state.user);
     const [comments, setComments] = useState([]);
     const [showModal, setShowModal] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
     const [commentIdToDelete, setCommentIdToDelete] = useState();
   
     useEffect(() => {
@@ -62,7 +62,7 @@ const DashComments = () => {
     };
   return (
    <div className="table-auto overflow-auto md:mx-auto px-8 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500">
-        {loading ? ( // 🔥 Show loading state while fetching
+        {loading ? ( 
       <p className="text-sm my-5">Loading comments...</p>
     ) : currentUser?.user?.isAdmin && comments.length > 0 ? (
       <Table hoverable className="shadow-md">
