@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Routes, BrowserRouter } from "react-router-dom";
+import { Route, Routes, BrowserRouter,Navigate } from "react-router-dom";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import SignIn from "./pages/SignIn";
@@ -36,6 +36,7 @@ const App = () => {
         </Route>
         <Route path="/project" element={<Project />} />
         <Route path="/post/:id" element={<PostPage />} />
+        <Route path="*" element={<Navigate to="/" />} />
       </Routes>
       <FooterComponent />
     </BrowserRouter>
